@@ -25,13 +25,13 @@ app.post('/api/items', (req, res) => {
   if (!name) {
     return res.status(400).json({ error: 'name is required' });
   }
-  res.status(201).json({ id: Date.now(), name });
+  res.status(201).json({ id: Date.now(), name }); // la date permet un Id unique
 });
 
 // GET /api/hello/:name
 app.get('/api/hello/:name', (req, res) => {
   const { name } = req.params;
-  res.status(200).json({ message: `Hello, ${name}!` });
+  res.status(200).json({ message: `Hello, ${name}!` }); // affichage de message classique avec paramètre dynamique dans l'URL
 });
 
 module.exports = app;
