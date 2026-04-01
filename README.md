@@ -2,7 +2,7 @@
 
 App simple avec CI/CD et déploiement automatique sur VM Azure
 
-![accès depuis IP publique](./images/image)
+![accès depuis IP publique](images/image.png)
 
 (http://20.199.88.246:3000/health)
 
