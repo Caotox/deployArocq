@@ -59,7 +59,7 @@ jobs:
           # Attendre que le serveur soit prêt (max 15s)
           for i in $(seq 1 15); do
             curl -sf http://localhost:3000/health && break
-            echo "Attente du serveur... ($i/15)"
+            echo "Attente du serveur... ($i/15)" # 15 secondes max comme précisé plus tôt
             sleep 1
           done
 
