@@ -1,6 +1,10 @@
-# MyApp — TP CI/CD avec GitHub Actions & Azure
+# TP Antoine Rocq
 
-API REST Node.js déployée automatiquement via une pipeline CI/CD complète.
+App simple avec CI/CD et déploiement automatique sur VM Azure
+
+![accès depuis IP publique](./images/image)
+
+(http://20.199.88.246:3000/health)
 
 ---
 
@@ -32,10 +36,10 @@ Les jobs 3 et 4 ne s'exécutent que si les tests unitaires **et** E2E passent (`
 
 | Méthode | Route             | Description                       |
 |---------|-------------------|-----------------------------------|
-| GET     | `/health`         | Healthcheck (status + uptime)     |
-| GET     | `/api/items`      | Liste des items                   |
-| POST    | `/api/items`      | Créer un item (`{ "name": "X" }`) |
-| GET     | `/api/hello/:name`| Message de salutation             |
+| GET     | `/health`         | Healthcheck (affichage du status et uptime) |
+| GET     | `/api/items`      | Affiche d'une liste statique d'items |
+| POST    | `/api/items`      | Créer un item (`{ "name": "X" }` et id Date unique) |
+| GET     | `/api/hello/:name`| Message de salutation personnalisé avec paramètre dans la barre de recherche |
 
 ---
 
@@ -68,29 +72,15 @@ npm run test:e2e
 
 ---
 
-## Choix techniques
-
-| Choix | Raison |
-|---|---|
-| **Node.js + Express** | Léger, rapide à mettre en place, idéal pour une API REST |
-| **Jest + Supertest** | Tests unitaires sans démarrer de vrai serveur réseau |
-| **Tests E2E HTTP natifs** | Pas de dépendance lourde (Cypress) en CI, suffisant pour une API |
-| **Docker multi-stage** | Image finale légère (uniquement les dépendances de prod) |
-| **appleboy/ssh-action** | Action GitHub maintenue, simple pour du SSH sur VM |
-| **Déploiement idempotent** | `docker stop/rm` avant `docker run` → jamais deux conteneurs en parallèle |
-| **GitHub Secrets** | Aucun identifiant en clair dans le dépôt |
-
----
-
 ## Secrets GitHub à configurer
 
 | Secret | Valeur |
 |---|---|
-| `DOCKERHUB_USERNAME` | Votre username Docker Hub |
+| `DOCKERHUB_USERNAME` | username Dockerhub |
 | `DOCKERHUB_TOKEN` | Token d'accès Docker Hub |
 | `AZURE_VM_HOST` | IP publique de la VM Azure |
-| `AZURE_VM_USER` | Utilisateur SSH (ex: `azureuser`) |
-| `AZURE_SSH_PRIVATE_KEY` | Clé privée SSH (contenu du fichier `.pem`) |
+| `AZURE_VM_USER` | Utilisateur SSH |
+| `AZURE_SSH_PRIVATE_KEY` | Clé privée SSH |
 
 ---
 
@@ -99,7 +89,7 @@ npm run test:e2e
 ```
 myapp/
 ├── src/
-│   ├── app.js          # Express app (routes)
+│   ├── app.js          # app 
 │   └── server.js       # Démarrage du serveur
 ├── tests/
 │   ├── unit/
